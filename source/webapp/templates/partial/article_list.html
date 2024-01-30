@@ -42,18 +42,31 @@
 
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script>
-    $(document).ready(function() {
-        $('.like-button').click(function() {
-            var model = $(this).data('model');
-            var itemId = $(this).data('item-id');
-            var likeCountId = $(this).data('like-count-id');
 
-            $.get(`/api/toggle_like/${model}/${itemId}/`, function(data) {
-                $('#' + likeCountId).text(data.likes_count);
-            });
+$(document).ready(function() {
+    $('.like-button').click(function() {
+        var model = $(this).data('model');
+        var itemId = $(this).data('item-id');
+        var likeCountId = $(this).data('like-count-id');
+        var buttonText = $(this).text();  // Get the current button text
+
+        $.get(`/api/toggle_like/${model}/${itemId}/`, function(data) {
+            $('#' + likeCountId).text(data.likes_count);
+
+            // Toggle between "Лайк" and "Анлайк" based on the response
+            if (buttonText.trim() === 'Лайк') {
+                $(this).text('Анлайк');
+            } else {
+                $(this).text('Лайк');
+            }
         });
     });
+});
+
 </script>
+
+
+
 
 
 
